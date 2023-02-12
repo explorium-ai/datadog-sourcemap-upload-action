@@ -38,7 +38,7 @@ runs:
       env:
         DATADOG_API_KEY: ${{ inputs.api-key }}
       run: |
-        datadog-ci sourcemaps upload ${{ inputs.api-key }} \
+        datadog-ci sourcemaps upload ${{ inputs.path }} \
         --service=${{ inputs.service }} \
         --release-version=${{ inputs.release-version }} \
         --minified-path-prefix=${{ inputs.minified-path-prefix }}
