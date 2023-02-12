@@ -7,7 +7,7 @@
   uses: explorium-ai/datadog-sourcemap-upload-action@main
   with:
     api-key: 12345abcdrg4rfg6hj92b34a82f113f
-    path: /app/dist/
+    path: ./dist/
     service: frontend
     release-version: ${{ github.sha }}
     minified-path-prefix: https://cdn.mycompany.com

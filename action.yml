@@ -9,7 +9,7 @@ inputs:
     required: true
   path:
     description: Path of JavaScript Sourcemaps files
-    default: ./app/dist/
+    default: ./dist/
     required: true
   service:
     description: Service Name
