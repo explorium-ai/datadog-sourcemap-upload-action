@@ -1,0 +1,48 @@
+name: Upload JavaScript Sourcemaps to Datadog
+description: Upload JavaScript Sourcemaps to Datadog
+branding:
+  icon: hard-drive
+  color: blue
+inputs:
+  api-key:
+    description: DataDog API Key
+    required: true
+  path:
+    description: Path of JavaScript Sourcemaps files
+    default: /app/dist/
+    required: true
+  service:
+    description: Service Name
+    default: frontend
+    required: true      
+  release-version:
+    description: Release Version (Usually Github Head Commit SHA)
+    default: ${{ github.sha }}
+    required: true
+  minified-path-prefix:
+    description: Minified Path Prefix
+    default: https://cdn.mycompany.com
+    required: true    
+runs:
+  using: "composite"
+  steps:
+    - name: Set Node.js 18
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18
+
+    - name: Install DataDog CI
+      uses: borales/actions-yarn@v4
+      with:
+        cmd: global add @datadog/datadog-ci
+
+    - name: Upload Sourcemaps
+      shell: bash
+      env:
+        DATADOG_API_KEY: ${{ inputs.api-key }}
+      run: |
+        datadog-ci sourcemaps upload ${{ inputs.api-key }} \
+        --service=${{ inputs.service }} \
+        --release-version=${{ inputs.release-version }} \
+        --minified-path-prefix=${{ inputs.minified-path-prefix }}
+        
