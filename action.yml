@@ -26,15 +26,12 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Set Node.js 18
+    - name: Set Node.js
       uses: actions/setup-node@v3
-      with:
-        node-version: 18
 
     - name: Install DataDog CI
-      uses: borales/actions-yarn@v4
-      with:
-        cmd: global add @datadog/datadog-ci
+      shell: bash
+      run: npm install -g @datadog/datadog-ci
 
     - name: Upload Sourcemaps
       shell: bash
