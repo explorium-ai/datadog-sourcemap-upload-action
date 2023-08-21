@@ -7,6 +7,10 @@ inputs:
   api-key:
     description: DataDog API Key
     required: true
+  dd-site:
+    description: DataDog Site
+    default: datadoghq.com
+    required: true
   path:
     description: Path of JavaScript Sourcemaps files
     default: ./dist/
@@ -36,6 +40,7 @@ runs:
     - name: Upload Sourcemaps
       shell: bash
       env:
+        DATADOG_SITE: ${{ inputs.dd-site }}
         DATADOG_API_KEY: ${{ inputs.api-key }}
       run: |
         datadog-ci sourcemaps upload ${{ inputs.path }} \
