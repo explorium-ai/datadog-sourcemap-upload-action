@@ -26,7 +26,20 @@ inputs:
   minified-path-prefix:
     description: Minified Path Prefix
     default: https://cdn.mycompany.com
-    required: true    
+    required: true   
+  disable-git:
+    description: Prevents the command from invoking git in the current working directory and sending repository related data to Datadog
+    default: false
+    required: true
+  repository-url:
+    description: Overrides the repository remote with a custom URL
+    default: ''
+    required: false
+  project-path:
+    description: The path of the project where the sourcemaps were built
+    default: ''
+    required: false
+  
 runs:
   using: "composite"
   steps:
@@ -46,5 +59,8 @@ runs:
         datadog-ci sourcemaps upload ${{ inputs.path }} \
         --service=${{ inputs.service }} \
         --release-version=${{ inputs.release-version }} \
-        --minified-path-prefix=${{ inputs.minified-path-prefix }}
+        --minified-path-prefix=${{ inputs.minified-path-prefix }} \
+        --disable-git=${{ inputs.disable-git }} \
+        --repository-url=${{ inputs.repository-url }} \
+        --project-path=${{ inputs.project-path }}
         
